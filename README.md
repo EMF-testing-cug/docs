@@ -44,22 +44,28 @@
 ```bash
 git config --global user.name "你的GitHub用户名"
 git config --global user.email "你的GitHub注册邮箱"
-2. 开启系统密码自动记忆（告别每次输密码）
+```
+
+### 2. 开启系统密码自动记忆（告别每次输密码）
 在终端中继续输入这一行命令：
 
-Bash
+```Bash
 git config --global credential.helper manager
 作用：开启后，以后在拉取或上传代码时，Windows 会自动唤起浏览器一键授权，无需手动反复输入 Token 密钥。
+```
 
-3. 网络连不上 GitHub 的解决办法
-如果终端报错 Recv failure: Connection was reset 或打开网页转圈：
+###3. 网络连不上 GitHub 的解决办法
+如果终端报错 Recv failure: Connection was reset 或打开网页转圈： 校园网有时候可以直连github，或使用magic
+</details>
 
+---
 
-
-步骤 1：下载代码（以 app-tem 组为例）
+<details>
+<summary><b> 三、如何下载和上传代码</b></summary>
+###步骤 1：下载代码（以 app-tem 组为例）
 在电脑中新建一个工作文件夹（例如 D:\EMF_Project），在该目录下按住 Shift + 鼠标右键 选择 “在此处打开 PowerShell 窗口”，执行：
 
-Bash
+```Bash
 # 1. 克隆下载仓库
 git clone [https://github.com/EMF-testing-cug/app-tem.git](https://github.com/EMF-testing-cug/app-tem.git)
 
@@ -69,30 +75,34 @@ cd app-tem
 # 3. 切换到统一开发主干 develop 分支（必须在 develop 基础上做开发）
 git checkout develop
 git pull origin develop
-步骤 2：建立属于你自己的专属分支（独立沙盒，随便折腾）
+```
+
+###步骤 2：建立属于你自己的专属分支（独立沙盒，随便折腾）
 为了防止大家互相覆盖代码，每个人写代码前必须新建一个专属分支。
 
 分支命名规则：feature/姓名拼音-你要做的功能
 
-Bash
+```Bash
 # 示例：张三负责编写功率计测试
 git checkout -b feature/zhangsan-power-meter
 敲完后看到 Switched to a new branch 就说明你已经进入专属分支了，在这里改任何文件都不会影响其他人！
+```
 
-步骤 3：用 PyCharm 打开并安装依赖
+###步骤 3：用 PyCharm 打开并安装依赖
 打开 PyCharm，选择 Open，选中刚才下载的 app-tem 文件夹。
 
 打开 PyCharm 下方的 Terminal（终端），安装团队依赖与质检工具：
 
-Bash
+```Bash
 pip install -r requirements.txt
 pip install ruff pytest
 对照各自组长分派的任务开始编写代码。
+```
 
-步骤 4：本地“安检”自测（必做！没做上传必报红叉）
+###步骤 4：本地“安检”自测（必做！没做上传必报红叉）
 在准备上传代码前，必须在 PyCharm 底部终端运行以下两行命令，通过电脑的自动检测：
 
-Bash
+```Bash
 # 1. 自动把你的代码排版整齐、修复空行和引用顺序
 python -m ruff check --fix .
 python -m ruff format .
@@ -100,11 +110,12 @@ python -m ruff format .
 # 2. 跑一遍测试用例，确保你的代码没有把已有功能改挂
 pytest tests/
 看结果：如果终端最后显示绿色的一行（例如 x passed），说明你的代码完全合格，可以上传！
+```
 
-步骤 5：提交并上传到 GitHub
+###步骤 5：提交并上传到 GitHub
 在终端中依次输入以下三条命令：
 
-Bash
+```Bash
 # 1. 收集你修改过的所有文件
 git add .
 
@@ -113,7 +124,9 @@ git commit -m "feat: 完成功率计基础通信与量程切换功能"
 
 # 3. 推送到云端专属开发分支
 git push -u origin feature/zhangsan-power-meter
-步骤 6：在网页上发起合并申请（Pull Request）
+```
+
+### 步骤 6：在网页上发起合并申请（Pull Request）
 打开浏览器进入你的仓库页面（如 https://github.com/EMF-testing-cug/app-tem）。
 
 页面顶部会弹出一个黄色横幅，点击右侧绿色的 Compare & pull request。
@@ -134,6 +147,7 @@ git push -u origin feature/zhangsan-power-meter
 
 为了让大家在没有真实硬件时也能在电脑上调试界面和逻辑，底层所有驱动都必须实现如下规范模式：
 
+```bash
 Python
 class PowerMeterDriver:
     """功率计驱动示例：包含真实 SCPI 通信与 Mock 纯软件仿真"""
@@ -168,15 +182,22 @@ class PowerMeterDriver:
         # 真实仪器发送 SCPI 查询指令
         raw_val = self.session.query("READ:POW?")
         return float(raw_val)
-Q1：提示 Authentication failed / 提示输入账号密码失败？
+```
+</details>
+
+---
+
+<details>
+<summary><b> QA</b></summary>
+###Q1：提示 Authentication failed / 提示输入账号密码失败？
 原因：GitHub 已经不支持输入普通登录密码。
 
 解决办法：在终端输入 git config --global credential.helper manager。下次推送时 Windows 会弹出一个网页登录小窗口，在浏览器点击绿色按钮 Authorize 授权一次即可。
 
-Q2：别人比我先合并了代码，我怎么获取别人的最新代码？
+###Q2：别人比我先合并了代码，我怎么获取别人的最新代码？
 在发起 PR 之前，需要先拉取最新的 develop 主干合并到自己的分支：
 
-Bash
+```Bash
 # 1. 切换到 develop 并拉取全队最新进展
 git checkout develop
 git pull origin develop
@@ -185,16 +206,22 @@ git pull origin develop
 git checkout feature/你的分支名
 git merge develop
 如果提示冲突，在 PyCharm 里会弹窗提示你保留哪边的代码，点击接受后重新保存即可。
+```
 
-Q3：代码写乱套了，想彻底放弃这次没保存的修改，恢复原样？
+###Q3：代码写乱套了，想彻底放弃这次没保存的修改，恢复原样？
 只要你还没输入过 git commit，在终端输入这一行命令，所有改动立刻还原：
 
-Bash
+```Bash
 git restore .
-Q4：为什么我的测试代码在 Python 3.8 报 TypeError: 'type' object is not subscriptable？
+```
+
+###Q4：为什么我的测试代码在 Python 3.8 报 TypeError: 'type' object is not subscriptable？
 原因：Python 3.8 对小写的泛型类型注解（如 list[float]、tuple[...]）支持不完善。
 
 解决办法：在那个报错的代码文件最顶端第一行加入以下代码即可完全兼容[cite: 6]：
 
+```bash
 Python
 from __future__ import annotations
+```
+</details>
