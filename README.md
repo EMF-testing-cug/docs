@@ -54,7 +54,7 @@ git config --global credential.helper manager
 作用：开启后，以后在拉取或上传代码时，Windows 会自动唤起浏览器一键授权，无需手动反复输入 Token 密钥。
 ```
 
-###3. 网络连不上 GitHub 的解决办法
+### 3. 网络连不上 GitHub 的解决办法
 如果终端报错 Recv failure: Connection was reset 或打开网页转圈： 校园网有时候可以直连github，或使用magic
 </details>
 
@@ -62,7 +62,7 @@ git config --global credential.helper manager
 
 <details>
 <summary><b> 三、如何下载和上传代码</b></summary>
-###步骤 1：下载代码（以 app-tem 组为例）
+### 步骤 1：下载代码（以 app-tem 组为例）
 在电脑中新建一个工作文件夹（例如 D:\EMF_Project），在该目录下按住 Shift + 鼠标右键 选择 “在此处打开 PowerShell 窗口”，执行：
 
 ```Bash
@@ -77,7 +77,7 @@ git checkout develop
 git pull origin develop
 ```
 
-###步骤 2：建立属于你自己的专属分支（独立沙盒，随便折腾）
+### 步骤 2：建立属于你自己的专属分支（独立沙盒，随便折腾）
 为了防止大家互相覆盖代码，每个人写代码前必须新建一个专属分支。
 
 分支命名规则：feature/姓名拼音-你要做的功能
@@ -88,7 +88,7 @@ git checkout -b feature/zhangsan-power-meter
 敲完后看到 Switched to a new branch 就说明你已经进入专属分支了，在这里改任何文件都不会影响其他人！
 ```
 
-###步骤 3：用 PyCharm 打开并安装依赖
+### 步骤 3：用 PyCharm 打开并安装依赖
 打开 PyCharm，选择 Open，选中刚才下载的 app-tem 文件夹。
 
 打开 PyCharm 下方的 Terminal（终端），安装团队依赖与质检工具：
@@ -99,7 +99,7 @@ pip install ruff pytest
 对照各自组长分派的任务开始编写代码。
 ```
 
-###步骤 4：本地“安检”自测（必做！没做上传必报红叉）
+### 步骤 4：本地“安检”自测（必做！没做上传必报红叉）
 在准备上传代码前，必须在 PyCharm 底部终端运行以下两行命令，通过电脑的自动检测：
 
 ```Bash
@@ -112,7 +112,7 @@ pytest tests/
 看结果：如果终端最后显示绿色的一行（例如 x passed），说明你的代码完全合格，可以上传！
 ```
 
-###步骤 5：提交并上传到 GitHub
+### 步骤 5：提交并上传到 GitHub
 在终端中依次输入以下三条命令：
 
 ```Bash
@@ -189,7 +189,7 @@ class PowerMeterDriver:
 
 <details>
 <summary><b> QA</b></summary>
-###Q1：提示 Authentication failed / 提示输入账号密码失败？
+### Q1：提示 Authentication failed / 提示输入账号密码失败？
 原因：GitHub 已经不支持输入普通登录密码。
 
 解决办法：在终端输入 git config --global credential.helper manager。下次推送时 Windows 会弹出一个网页登录小窗口，在浏览器点击绿色按钮 Authorize 授权一次即可。
@@ -208,14 +208,14 @@ git merge develop
 如果提示冲突，在 PyCharm 里会弹窗提示你保留哪边的代码，点击接受后重新保存即可。
 ```
 
-###Q3：代码写乱套了，想彻底放弃这次没保存的修改，恢复原样？
+### Q3：代码写乱套了，想彻底放弃这次没保存的修改，恢复原样？
 只要你还没输入过 git commit，在终端输入这一行命令，所有改动立刻还原：
 
 ```Bash
 git restore .
 ```
 
-###Q4：为什么我的测试代码在 Python 3.8 报 TypeError: 'type' object is not subscriptable？
+### Q4：为什么我的测试代码在 Python 3.8 报 TypeError: 'type' object is not subscriptable？
 原因：Python 3.8 对小写的泛型类型注解（如 list[float]、tuple[...]）支持不完善。
 
 解决办法：在那个报错的代码文件最顶端第一行加入以下代码即可完全兼容[cite: 6]：
@@ -224,4 +224,5 @@ git restore .
 Python
 from __future__ import annotations
 ```
+
 </details>
