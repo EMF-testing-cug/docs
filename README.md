@@ -62,6 +62,7 @@ git config --global credential.helper manager
 
 <details>
 <summary><b> 三、如何下载和上传代码</b></summary>
+
 ### 步骤 1：下载代码（以 app-tem 组为例）
 在电脑中新建一个工作文件夹（例如 D:\EMF_Project），在该目录下按住 Shift + 鼠标右键 选择 “在此处打开 PowerShell 窗口”，执行：
 
@@ -189,12 +190,13 @@ class PowerMeterDriver:
 
 <details>
 <summary><b> QA</b></summary>
+
 ### Q1：提示 Authentication failed / 提示输入账号密码失败？
 原因：GitHub 已经不支持输入普通登录密码。
 
 解决办法：在终端输入 git config --global credential.helper manager。下次推送时 Windows 会弹出一个网页登录小窗口，在浏览器点击绿色按钮 Authorize 授权一次即可。
 
-###Q2：别人比我先合并了代码，我怎么获取别人的最新代码？
+### Q2：别人比我先合并了代码，我怎么获取别人的最新代码？
 在发起 PR 之前，需要先拉取最新的 develop 主干合并到自己的分支：
 
 ```Bash
@@ -218,7 +220,7 @@ git restore .
 ### Q4：为什么我的测试代码在 Python 3.8 报 TypeError: 'type' object is not subscriptable？
 原因：Python 3.8 对小写的泛型类型注解（如 list[float]、tuple[...]）支持不完善。
 
-解决办法：在那个报错的代码文件最顶端第一行加入以下代码即可完全兼容[cite: 6]：
+解决办法：在那个报错的代码文件最顶端第一行加入以下代码即可完全兼容：
 
 ```bash
 Python
